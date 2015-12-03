@@ -49,4 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void search(View view) {
+        System.out.println("Search for events");
+    }
 }
