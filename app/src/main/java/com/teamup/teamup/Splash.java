@@ -16,11 +16,11 @@ public class Splash extends Activity {
         Thread timer = new Thread() {
             public void run() {
                 try {
-                    sleep(5000);
+                    sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    Intent openLandingPage = new Intent(Splash.this,MainActivity.class);
+                    Intent openLandingPage = new Intent(Splash.this,CardListActivity.class);
                     startActivity(openLandingPage);
                 }
             }
