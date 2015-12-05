@@ -46,7 +46,7 @@ public class CustomCard extends Card {
      */
     private void init(){
 
-        //No Header
+
 
         //Set a OnClickListener listener
 //        setOnClickListener(new OnCardClickListener() {
