@@ -1,5 +1,6 @@
 package com.teamup.teamup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
+
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
+import it.gmariotti.cardslib.library.view.CardListView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +33,39 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        createCardLists();
+    }
+
+    protected void createCardLists() {
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        for (int i = 0; i<5; i++) {
+            Event event = new Event("Tag"+i,"Location"+i,"Time"+i,"Title"+i,"Attendance"+i);
+            Card card = new CustomCard(this,event);
+
+            card.setOnClickListener(new Card.OnCardClickListener() {
+                @Override
+                public void onClick(Card card, View view) {
+                    Intent nextActivity = new Intent(MainActivity.this, EventDescription.class);
+                    startActivity(nextActivity);
+                }
+            });
+
+
+            //CardThumbnail thumb = new CardThumbnail(this);
+            //thumb.setDrawableResource(listImages[i]);
+            //card.addCardThumbnail(thumb);
+
+            cards.add(card);
+        }
+
+        CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);
+
+        CardListView listView = (CardListView) this.findViewById(R.id.myList);
+        if (listView != null) {
+            listView.setAdapter(mCardArrayAdapter);
+        }
     }
 
     @Override

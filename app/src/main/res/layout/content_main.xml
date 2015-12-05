@@ -7,24 +7,30 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.teamup.teamup.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:orientation="vertical">
 
-    <EditText android:id="@+id/edit_message"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Search for an event"
-        android:layout_weight="1"
-        android:paddingLeft="20dp"
-        android:paddingBottom="10dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText android:id="@+id/edit_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Search for an event"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"/>
 
-    <mehdi.sakout.fancybuttons.FancyButton
-        android:id="@+id/send_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        fancy:fb_text="@string/search_button"
-        android:onClick="search"
-        style="@style/TealButtonStyl"/>
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fancy:fb_text="@string/search_button"
+            android:onClick="search"
+            style="@style/TealButtonStyl"/>
+    </LinearLayout>
 
+    <include layout="@layout/activity_list"></include>
 </LinearLayout>
