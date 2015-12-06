@@ -1,6 +1,7 @@
 package com.teamup.teamup;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,8 +10,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
@@ -75,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void search(View view) {
+        String text = "Clicked on Search";
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -90,7 +105,67 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void search(View view) {
+    protected void getEvents() {
+        String url = "http://6dd6cd72.ngrok.io/";
+        //Get location and user id
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        // Result handling
+                        System.out.println(response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Error handling
+                System.out.println("Something went wrong!");
+                error.printStackTrace();
+            }
+        });
+
+        // Add the request to the queue
+        Service.getInstance().getRequestQueue().add(stringRequest);
+    }
+
+    private void createEvent() {
         System.out.println("Search for events");
+        String url = "http://6dd6cd72.ngrok.io/";
+
+        // Request a string response
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        // Result handling
+                        System.out.println(response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Error handling
+                System.out.println("Something went wrong!");
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<>();
+                // the POST parameters:
+                params.put("site", "code");
+                params.put("network", "tutsplus");
+                return params;
+            }
+        };
+
+        // Add the request to the queue
+        Service.getInstance().getRequestQueue().add(stringRequest);
     }
 }

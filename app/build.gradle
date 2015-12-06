@@ -31,4 +31,5 @@ dependencies {
     //CARDS LIB
     compile 'com.github.gabrielemariotti.cards:cardslib-core:2.1.0'
     compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.1.0'
+    compile project(':volley')
 }
