@@ -67,11 +67,14 @@ public class CustomCard extends Card {
         tvTitle = (TextView) parent.findViewById(R.id.card_eventTitle);
         tvAttendance = (TextView) parent.findViewById(R.id.card_eventAttendance);
 
-        tvTag.setText(event.getEventTag());
-        tvLocation.setText(event.getEventLocation());
-        tvTime.setText(event.getEventTime());
-        tvTitle.setText(event.getEventName());
-        tvAttendance.setText(event.getEventAttendance());
+        tvTag.setText(event.getTag());
+        tvLocation.setText(event.getLocation());
 
+        if(event.getStartTime() != null) {
+            tvTime.setText(event.getStartTime().getTime().toString());
+        }
+
+        tvTitle.setText(event.getTitle());
+        tvAttendance.setText(Integer.toString(event.getEnrolment()));
     }
 }
