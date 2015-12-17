@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
+
 import java.util.ArrayList;
 
 import it.gmariotti.cardslib.library.internal.Card;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         createCardLists();
+
+
     }
 
     protected void createCardLists() {
