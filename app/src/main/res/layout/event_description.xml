@@ -1,184 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context="com.teamup.teamup.MainActivity"
+    tools:showIn="@layout/activity_main"
     android:layout_margin="20dp">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:weightSum="3">
-        <TextView
-            android:id="@+id/tv_eventName"
-            android:fontFamily="Verdana"
-            android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="left"
-            android:text="Event Name  "/>
-
-        <TextView
+        android:layout_margin="10dp">
+    <TextView
             android:id="@+id/tv_eventNameVariable"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="Verdana"
-            android:textSize="20sp"
+            android:textSize="30sp"
+            android:textStyle="bold"
             android:text="Football"
-            android:gravity="right"
-            android:layout_weight="2" />
+            android:gravity="center"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginTop="30px"
-        android:weightSum="3">
+        android:layout_marginTop="30px">
+
         <TextView
-            android:id="@+id/tv_eventDesc"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_eventTagsVar"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="Verdana"
             android:textSize="20sp"
-            android:layout_weight="1"
-            android:text="Event Description  " />
+            android:gravity="center"
+            android:textColor="#00CDCD"
+            android:text="#Football #Soccer"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="30px"
+        android:weightSum="4">
+        <TextView
+            android:id="@+id/tv_eventDesc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="Verdana"
+            android:textSize="20sp"
+            android:layout_weight="2"
+            android:text="Description  " />
 
         <TextView
             android:id="@+id/tv_eventDescVar"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="Verdana"
             android:textSize="20sp"
-            android:gravity="right"
+            android:gravity="center"
             android:layout_weight="2"
             android:text="Lets play football together today!"/>
     </LinearLayout>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"/>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginTop="30px"
-        android:weightSum="3">
-        <TextView
-            android:id="@+id/tv_eventTags"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="Verdana"
-            android:textSize="20sp"
-            android:layout_weight="1"
-            android:text="Event Tags  "/>
-
-        <TextView
-            android:id="@+id/tv_eventTagsVar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="Verdana"
-            android:textSize="20sp"
-            android:gravity="right"
-            android:layout_weight="2"
-            android:text="Football,Soccer"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="30px"
-        android:weightSum="3">
+        android:weightSum="4">
         <TextView
             android:id="@+id/tv_eventLoc"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="Verdana"
             android:textSize="20sp"
-            android:layout_weight="1"
-            android:text="Event Location : "/>
+            android:layout_weight="2"
+            android:text="Location  "/>
 
         <TextView
             android:id="@+id/tv_eventLocVar"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="Verdana"
             android:textSize="20sp"
-            android:gravity="right"
+            android:gravity="center"
             android:layout_weight="2"
             android:text="Central Park,New York"/>
     </LinearLayout>
-
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"/>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginTop="30px"
-        android:weightSum="3">
+        android:weightSum="4">
         <TextView
             android:id="@+id/tv_eventTime"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="Verdana"
             android:textSize="20sp"
-            android:layout_weight="1"
-            android:text="Event Time : "/>
+            android:layout_weight="2"
+            android:text="Time  "/>
 
         <TextView
             android:id="@+id/tv_eventTimeVar"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="Verdana"
             android:textSize="20sp"
-            android:gravity="right"
+            android:gravity="center"
             android:layout_weight="2"
             android:text="4pm to 6pm"/>
     </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"/>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginTop="30px"
-        android:weightSum="3">
+        android:weightSum="4">
         <TextView
             android:id="@+id/tv_eventAttendance"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="Verdana"
             android:textSize="20sp"
-            android:layout_weight="1"
-            android:text="People Attending : "/>
+            android:layout_weight="2"
+            android:text="People going : "/>
 
         <TextView
             android:id="@+id/tv_eventAttendanceVar"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:fontFamily="Verdana"
             android:textSize="20sp"
-            android:gravity="right"
+            android:gravity="center"
             android:layout_weight="2"
             android:text="6/12"/>
     </LinearLayout>
 
-    <mehdi.sakout.fancybuttons.FancyButton
-        android:id="@+id/btn_createEvent"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp"
-        android:layout_gravity="center"
-        android:layout_margin="30dp"
-        fancy:fb_borderColor="#FFFFFF"
-        fancy:fb_borderWidth="1dp"
-        fancy:fb_defaultColor="#7ab800"
-        fancy:fb_focusColor="#9bd823"
-        fancy:fb_radius="30dp"
-        fancy:fb_text="JOIN EVENT"
-        fancy:fb_textColor="#FFFFFF"
-        android:padding="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="67dp" />
+        android:layout_height="wrap_content">
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btn_createEvent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:layout_gravity="center"
+            android:layout_margin="30dp"
+            fancy:fb_borderColor="#FFFFFF"
+            fancy:fb_borderWidth="1dp"
+            fancy:fb_defaultColor="#7ab800"
+            fancy:fb_focusColor="#9bd823"
+            fancy:fb_radius="30dp"
+            fancy:fb_text="JOIN EVENT"
+            fancy:fb_textColor="#FFFFFF"
+            android:padding="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="67dp" />
+    </LinearLayout>
 </LinearLayout>

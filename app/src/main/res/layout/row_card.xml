@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="20dp">
+    android:layout_margin="10dp">
 
     <TextView
         android:id="@+id/card_eventTitle"
@@ -59,11 +59,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:tint="@android:color/white"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@drawable/person_add_18"
         app:backgroundTint="@android:color/holo_green_light"
         android:layout_below="@+id/card_eventTitle"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="2dp"/>
 
 </RelativeLayout>

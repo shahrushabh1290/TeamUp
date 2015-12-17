@@ -1,9 +1,12 @@
 package com.teamup.teamup;
 
 import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import it.gmariotti.cardslib.library.internal.Card;
 
@@ -18,6 +21,8 @@ public class CustomCard extends Card {
     protected TextView tvAttendance;
     protected TextView tvTitle;
     protected Event event;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    SharedPreferences sharedpreferences;
 
 
     /**
@@ -72,6 +77,15 @@ public class CustomCard extends Card {
         tvTime.setText(event.getEventTime());
         tvTitle.setText(event.getEventName());
         tvAttendance.setText(event.getEventAttendance());
+
+        final FloatingActionButton fabAddPerson = (FloatingActionButton) view.findViewById(R.id.fab);
+        fabAddPerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    fabAddPerson.setImageResource(R.drawable.ic_done_white);
+                    Toast.makeText(view.getContext(), "Directly add the user to the event", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

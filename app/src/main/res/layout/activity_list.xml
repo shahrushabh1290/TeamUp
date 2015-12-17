@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#E0E0E0"
     xmlns:card="http://schemas.android.com/apk/res-auto"
     >
 
@@ -11,9 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         card:list_card_layout_resourceID="@layout/list_card_thumbnail_layout"
-        style="@style/list_card.thumbnail"
-        
-        />
+        style="@style/list_card.thumbnail"/>
 
    <!--style="@style/list_card.thumbnail"-->
 <!--"-->

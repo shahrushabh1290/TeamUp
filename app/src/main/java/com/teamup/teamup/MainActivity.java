@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,16 +22,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent nextActivity = new Intent(MainActivity.this, CreateEvent.class);
+                startActivity(nextActivity);
+
             }
         });
 
@@ -52,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-
             //CardThumbnail thumb = new CardThumbnail(this);
             //thumb.setDrawableResource(listImages[i]);
             //card.addCardThumbnail(thumb);
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         if (listView != null) {
             listView.setAdapter(mCardArrayAdapter);
         }
+
     }
 
     @Override
