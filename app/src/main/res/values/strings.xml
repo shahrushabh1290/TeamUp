@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="search_text">Search for an event</string>
     <string name="search_button">Search</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="facebook_app_id">455384491337351</string>
 </resources>

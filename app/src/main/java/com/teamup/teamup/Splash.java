@@ -20,7 +20,7 @@ public class Splash extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    Intent openLandingPage = new Intent(Splash.this,MainActivity.class);
+                    Intent openLandingPage = new Intent(Splash.this,LoginActivity.class);
                     startActivity(openLandingPage);
                 }
             }
