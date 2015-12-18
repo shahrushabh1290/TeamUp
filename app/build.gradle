@@ -33,4 +33,7 @@ dependencies {
     compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.1.0'
     compile project(':volley')
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
+
+    //DATE PICKER
+    compile 'com.wdullaer:materialdatetimepicker:2.1.0'
 }

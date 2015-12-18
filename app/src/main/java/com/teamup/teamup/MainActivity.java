@@ -150,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createEvent(View view) {
+        Intent nextActivity = new Intent(MainActivity.this, CreateEvent.class);
+        startActivity(nextActivity);
+
         System.out.println("Search for events");
 //        String url = "http://ff6c0299.ngrok.io/create_event";
         String url = "https://06443be7.ngrok.io/createEvent";
