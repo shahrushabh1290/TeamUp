@@ -165,7 +165,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <mehdi.sakout.fancybuttons.FancyButton
-            android:id="@+id/btn_createEvent"
+            android:id="@+id/btn_joinEvent"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
@@ -180,6 +180,32 @@
             fancy:fb_focusColor="#9bd823"
             fancy:fb_radius="30dp"
             fancy:fb_text="JOIN EVENT"
+            fancy:fb_textColor="#FFFFFF"
+            android:padding="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="67dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btn_leaveEvent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:layout_gravity="center"
+            android:layout_margin="30dp"
+            fancy:fb_borderColor="#FFFFFF"
+            fancy:fb_borderWidth="1dp"
+            fancy:fb_defaultColor="#7ab800"
+            fancy:fb_focusColor="#9bd823"
+            fancy:fb_radius="30dp"
+            fancy:fb_text="LEAVE EVENT"
             fancy:fb_textColor="#FFFFFF"
             android:padding="20dp"
             android:layout_alignParentBottom="true"
