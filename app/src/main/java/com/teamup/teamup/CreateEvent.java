@@ -2,6 +2,9 @@ package com.teamup.teamup;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,7 +22,7 @@ import mehdi.sakout.fancybuttons.FancyButton;
 /**
  * Created by rohan on 15/12/15.
  */
-public class CreateEvent extends Activity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class CreateEvent extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +95,14 @@ public class CreateEvent extends Activity implements DatePickerDialog.OnDateSetL
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
         String time = "You picked the following time: "+hourOfDay+"h"+minute;
         Toast.makeText(getApplicationContext(), time, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_simple, menu);
+        return true;
     }
 
 }
