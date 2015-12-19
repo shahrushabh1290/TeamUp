@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent nextActivity = new Intent(MainActivity.this, EditInterests.class);
+            startActivity(nextActivity);
         }
 
         return super.onOptionsItemSelected(item);
