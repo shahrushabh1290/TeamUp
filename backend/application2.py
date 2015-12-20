@@ -104,14 +104,14 @@ def create_event():
             print request.form
             print request.data
             user_id = request.form['user_id']
-            
-            tag = request.form['tag']
-            title = request.form['title']
+            loc_raw = request.form['locationRaw']
+            tag = request.form['tag'].lower()
+            title = request.form['title'].lower()
             start_time = request.form['startTime']
             print tag, title, start_time
 
             end_time = request.form['endTime']
-            creator = request.form['creator'] 
+            #creator = request.form['creator'] 
             capacity = request.form['capacity']
             description = request.form['description']
             print 'ok'
@@ -120,7 +120,7 @@ def create_event():
             longi = request.form['long']
             print lat, longi
 
-            enrolment = [creator]
+            enrolment = [user_id]
 
 
             #Editing the event
@@ -131,11 +131,12 @@ def create_event():
                 'title': title,
                 'start_time': start_time,
                 'end_time': end_time,
-                'creator': creator,
+                'creator': user_id,
                 'capacity': capacity,
                 'description': description,
                 'location': location_event,
-                'enrolment': enrolment,   
+                'enrolment': enrolment,
+                'locRaw' : loc_raw   
                 })
             # col_events.update({ "_id": ObjectId(event_id)}, event)
             col_events.insert(event)
