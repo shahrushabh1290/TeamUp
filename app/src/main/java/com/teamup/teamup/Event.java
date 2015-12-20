@@ -17,6 +17,7 @@ public class Event {
     private String location;
     private String eventId;
     private String creator;
+    private String rawLoc;
     private int capacity;
     private String description;
     private GregorianCalendar startTime;
@@ -56,7 +57,7 @@ public class Event {
             startTime.setTimeInMillis(time*1000);        }
 
         if(eventJson.has("enrolment")) {
-            enrolment = eventJson.getInt("enrolment");
+            enrolment = eventJson.getJSONArray("enrolment").length();
         }
 
         if(eventJson.has("privacy")) {
@@ -70,14 +71,18 @@ public class Event {
         if(eventJson.has("title")) {
             title = eventJson.getString("title");
         }
+
+        if(eventJson.has("locRaw")) {
+            rawLoc = eventJson.getString("locRaw");
+        }
     }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getTitle() {return title;}
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getRawLoc(){return rawLoc;}
 
     public String getTag() {
         return tag;

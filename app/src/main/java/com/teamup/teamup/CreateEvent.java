@@ -1,6 +1,8 @@
 package com.teamup.teamup;
 
 import android.app.Activity;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -19,9 +21,11 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.security.Timestamp;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import mehdi.sakout.fancybuttons.FancyButton;
@@ -31,6 +35,9 @@ import mehdi.sakout.fancybuttons.FancyButton;
  * Created by rohan on 15/12/15.
  */
 public class CreateEvent extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+
+    GregorianCalendar cal = new GregorianCalendar();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +102,7 @@ public class CreateEvent extends AppCompatActivity implements DatePickerDialog.O
     }
 
     private void createEvent(View v) {
-        String url = "http://6bc4200d.ngrok.io/create_event";
+        String url = "http://6dbbede.ngrok.com/create_event";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -117,24 +124,44 @@ public class CreateEvent extends AppCompatActivity implements DatePickerDialog.O
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                EditText name = (EditText) findViewById(R.id.et_eventNameForm);
+                EditText desc = (EditText) findViewById(R.id.et_eventDescForm);
+                EditText tags = (EditText) findViewById(R.id.et_eventTagForm);
+                EditText location = (EditText) findViewById(R.id.et_eventLocForm);
+                EditText nppl = (EditText) findViewById(R.id.tv_eventAttendanceVar);
+
+
+                Address locAddress=null;
+
+                Geocoder coder = new Geocoder(getApplicationContext());
+                List<Address> address;
+
+                try {
+                    address = coder.getFromLocationName(location.getText().toString(),5);
+                    if (address==null) {
+                        return null;
+                    }
+                    locAddress=address.get(0);
+                }
+                catch (Exception e){
+
+                }
+
                 HashMap<String, String> params = new HashMap<String, String>();
                 params.put("user_id", "0");
-                params.put("title", "Let's play!");
-                params.put("capacity", "11");
-                params.put("tag", "football");
-                params.put("creator", "0");
-                params.put("description", "Let's play!");
-                long startTime = GregorianCalendar.getInstance().getTimeInMillis();
-                params.put("startTime", Long.toString(startTime));
-                long endTime = GregorianCalendar.getInstance().getTimeInMillis();
-                params.put("endTime", Long.toString(endTime));
-                params.put("enrolment", "1");
-                params.put("privacy", "0");
-                params.put("title", "football");
-                params.put("locationName", "Columbia University");
-                params.put("lat", "0");
-                params.put("long", "0");
+                params.put("title", name.getText().toString());
+                params.put("capacity", nppl.getText().toString());
+                params.put("tag", tags.getText().toString());
+                params.put("locationRaw", location.getText().toString());
+                params.put("description", desc.getText().toString());
 
+                long start_ts=cal.getTimeInMillis();
+                params.put("startTime", Long.toString(start_ts));
+
+                params.put("endTime", Long.toString(start_ts));
+
+                params.put("lat", String.valueOf(locAddress.getLatitude()));
+                params.put("long",String.valueOf(locAddress.getLongitude()));
                 return params;
             }
         };
@@ -146,14 +173,16 @@ public class CreateEvent extends AppCompatActivity implements DatePickerDialog.O
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = "You picked the following date: "+dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
-        Toast.makeText(getApplicationContext(), date, Toast.LENGTH_SHORT).show();
+        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        cal.set(Calendar.MONTH, monthOfYear);
+        cal.set(Calendar.YEAR, year);
     }
 
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
-        String time = "You picked the following time: "+hourOfDay+"h"+minute;
-        Toast.makeText(getApplicationContext(), time, Toast.LENGTH_SHORT).show();
+        cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.SECOND, second);
     }
 
     @Override

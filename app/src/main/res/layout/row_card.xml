@@ -4,14 +4,17 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:layout_margin="20dp"
+    android:layout_margin="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
-        android:layout_margin="2dp">
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_toLeftOf="@+id/fab"
+        android:layout_toStartOf="@+id/fab">
 
         <TextView
             android:id="@+id/card_eventTitle"
@@ -63,11 +66,12 @@
 
     </LinearLayout>
 
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:gravity="center_vertical"
         android:tint="@android:color/white"
         android:src="@drawable/person_add_18"
         app:backgroundTint="@android:color/holo_green_light"

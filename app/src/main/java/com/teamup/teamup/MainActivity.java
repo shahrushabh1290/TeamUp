@@ -2,6 +2,7 @@ package com.teamup.teamup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         params.put("user_id", "0");
         params.put("search_query", editText.getText().toString().trim());
         params.put("radius", "5000000");
-        String url = Utilities.createUrl("http://6bc4200d.ngrok.io/display_events", params);
+        String url = Utilities.createUrl("http://6dbbede.ngrok.com/display_events", params);
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -124,13 +125,14 @@ public class MainActivity extends AppCompatActivity {
         try {
             ArrayList<Card> cards = new ArrayList<Card>();
             for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject eventJson = jsonArray.getJSONObject(i);
+                final JSONObject eventJson = jsonArray.getJSONObject(i);
                 Event event = new Event(eventJson);
                 Card card = new CustomCard(this,event);
                 card.setOnClickListener(new Card.OnCardClickListener() {
                     @Override
                     public void onClick(Card card, View view) {
                         Intent nextActivity = new Intent(MainActivity.this, EventDescription.class);
+                        nextActivity.putExtra("EventVal",eventJson.toString());
                         startActivity(nextActivity);
                     }
                 });

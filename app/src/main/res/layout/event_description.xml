@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -162,8 +167,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_joinEvent"
             android:layout_width="fill_parent"
@@ -173,7 +183,7 @@
             android:paddingRight="20dp"
             android:paddingTop="10dp"
             android:layout_gravity="center"
-            android:layout_margin="30dp"
+            android:layout_margin="10dp"
             fancy:fb_borderColor="#FFFFFF"
             fancy:fb_borderWidth="1dp"
             fancy:fb_defaultColor="#7ab800"
@@ -189,7 +199,8 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_leaveEvent"
             android:layout_width="fill_parent"
@@ -199,11 +210,11 @@
             android:paddingRight="20dp"
             android:paddingTop="10dp"
             android:layout_gravity="center"
-            android:layout_margin="30dp"
+            android:layout_margin="10dp"
             fancy:fb_borderColor="#FFFFFF"
             fancy:fb_borderWidth="1dp"
-            fancy:fb_defaultColor="#7ab800"
-            fancy:fb_focusColor="#9bd823"
+            fancy:fb_defaultColor="#673AB7"
+            fancy:fb_focusColor="#512DA8"
             fancy:fb_radius="30dp"
             fancy:fb_text="LEAVE EVENT"
             fancy:fb_textColor="#FFFFFF"
@@ -212,4 +223,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="67dp" />
     </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
+</ScrollView>

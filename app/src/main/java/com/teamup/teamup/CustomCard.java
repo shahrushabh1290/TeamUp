@@ -44,17 +44,6 @@ public class CustomCard extends Card {
      */
     private void init(){
 
-
-
-        //Set a OnClickListener listener
-//        setOnClickListener(new OnCardClickListener() {
-//            @Override
-//            public void onClick(Card card, View view) {
-//                Intent openLandingPage = new Intent(CustomCard.this,EventDescription.class);
-//                startActivity(openLandingPage);
-//                //Toast.makeText(getContext(), "Click Listener card=", Toast.LENGTH_LONG).show();
-//            }
-//        });
     }
 
     @Override
@@ -67,14 +56,14 @@ public class CustomCard extends Card {
         tvTitle = (TextView) parent.findViewById(R.id.card_eventTitle);
         tvAttendance = (TextView) parent.findViewById(R.id.card_eventAttendance);
 
-        tvTag.setText(event.getTag());
-        tvLocation.setText(event.getLocation());
+        tvTag.setText("Tags : #"+event.getTag());
+        tvLocation.setText("Location : "+event.getRawLoc());
 
         if(event.getStartTime() != null) {
-            tvTime.setText(event.getStartTime().getTime().toString());
+            tvTime.setText("Starts at : "+event.getStartTime().getTime().toString());
         }
 
-        tvTitle.setText(event.getTitle());
-        tvAttendance.setText(Integer.toString(event.getEnrolment()));
+        tvTitle.setText(event.getTitle().toUpperCase());
+        tvAttendance.setText("People going : "+Integer.toString(event.getEnrolment()));
     }
 }
