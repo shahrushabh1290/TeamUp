@@ -1,57 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_margin="20dp">
+    android:orientation="horizontal"
+    android:layout_margin="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_margin="2dp">
 
-    <TextView
-        android:id="@+id/card_eventTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Football Anyone?"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/card_eventTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Football Anyone?"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/card_eventTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tags : Football,Soccer"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_above="@+id/card_eventLocation"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/card_eventTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tags : Football,Soccer"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_above="@+id/card_eventLocation"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/card_eventLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location : Central Park NY"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_above="@+id/card_eventTime"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/card_eventLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location : Central Park NY"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_above="@+id/card_eventTime"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/card_eventTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Time : 5:30 pm - 9:30 pm"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/fab"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/card_eventTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time : 5:30 pm - 9:30 pm"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_below="@+id/fab"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/card_eventAttendance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Attendance : 15/22"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/card_eventTime"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/card_eventAttendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attendance : 15/22"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_below="@+id/card_eventTime"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -61,10 +71,8 @@
         android:tint="@android:color/white"
         android:src="@drawable/person_add_18"
         app:backgroundTint="@android:color/holo_green_light"
-        android:layout_below="@+id/card_eventTitle"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="2dp"/>
-
-
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="30dp"/>
 </RelativeLayout>

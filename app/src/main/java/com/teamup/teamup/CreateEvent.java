@@ -10,11 +10,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 
@@ -81,8 +89,59 @@ public class CreateEvent extends AppCompatActivity implements DatePickerDialog.O
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Create this event", Toast.LENGTH_SHORT).show();
+                createEvent(v);
             }
         });
+    }
+
+    private void createEvent(View v) {
+        String url = "http://6bc4200d.ngrok.io/create_event";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        // Result handling
+                        System.out.println(response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Error handling
+                System.out.println("Something went wrong!");
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("user_id", "0");
+                params.put("title", "Let's play!");
+                params.put("capacity", "11");
+                params.put("tag", "football");
+                params.put("creator", "0");
+                params.put("description", "Let's play!");
+                long startTime = GregorianCalendar.getInstance().getTimeInMillis();
+                params.put("startTime", Long.toString(startTime));
+                long endTime = GregorianCalendar.getInstance().getTimeInMillis();
+                params.put("endTime", Long.toString(endTime));
+                params.put("enrolment", "1");
+                params.put("privacy", "0");
+                params.put("title", "football");
+                params.put("locationName", "Columbia University");
+                params.put("lat", "0");
+                params.put("long", "0");
+
+                return params;
+            }
+        };
+
+        // Add the request to the queue
+        Service.getInstance().getRequestQueue().add(stringRequest);
+
     }
 
     @Override

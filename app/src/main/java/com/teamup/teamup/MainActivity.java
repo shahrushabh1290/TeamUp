@@ -87,10 +87,9 @@ public class MainActivity extends AppCompatActivity {
         params.put("lat", "0");
         params.put("long", "0");
         params.put("user_id", "0");
-        params.put("search_query", editText.getText().toString());
+        params.put("search_query", editText.getText().toString().trim());
         params.put("radius", "5000000");
-//        String url = Utilities.createUrl("https://06443be7.ngrok.io", params);
-        String url = Utilities.createUrl("http://ff6c0299.ngrok.io/display_events", params);
+        String url = Utilities.createUrl("http://6bc4200d.ngrok.io/display_events", params);
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -153,54 +152,5 @@ public class MainActivity extends AppCompatActivity {
     public void createEvent(View view) {
         Intent nextActivity = new Intent(MainActivity.this, CreateEvent.class);
         startActivity(nextActivity);
-
-        System.out.println("Search for events");
-//        String url = "http://ff6c0299.ngrok.io/create_event";
-        String url = "https://06443be7.ngrok.io/createEvent";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        // Result handling
-                        System.out.println(response);
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                // Error handling
-                System.out.println("Something went wrong!");
-                error.printStackTrace();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("user_id", "0");
-                params.put("title", "Let's play!");
-                params.put("capacity", "11");
-                params.put("tag", "football");
-                params.put("creator", "0");
-                params.put("description", "Let's play!");
-                long startTime = GregorianCalendar.getInstance().getTimeInMillis();
-                params.put("startTime", Long.toString(startTime));
-                long endTime = GregorianCalendar.getInstance().getTimeInMillis();
-                params.put("endTime", Long.toString(endTime));
-                params.put("enrolment", "1");
-                params.put("privacy", "0");
-                params.put("title", "football");
-                params.put("locationName", "Columbia University");
-                params.put("lat", "0");
-                params.put("long", "0");
-
-                return params;
-            }
-        };
-
-        // Add the request to the queue
-        Service.getInstance().getRequestQueue().add(stringRequest);
     }
 }
