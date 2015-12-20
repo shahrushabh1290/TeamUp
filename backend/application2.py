@@ -6,6 +6,7 @@ from bson import json_util
 import json
 import uuid
 from bson.objectid import ObjectId
+import urllib2
 
 application = Flask(__name__)
 
@@ -271,6 +272,21 @@ def remove_interest():
     multi=True)
     return "Interest deleted !"  
 
+
+@application.route('/facebook_friends')
+def get_facebook_friends():
+    """ from a facebook short lived token returns a long lived token to the client"""
+    
+    short_lived_token = request.form('short_lived_token')
+    app_id = request.form['app_id']
+    app_secret = request.form['app_secret']
+    url = 'https://graph.facebook.com/oauth/access_token'+ '?grant_type=fb_exchange_token&client_id='+ app_id+ '&client_secret='+ app_secret+ '&fb_exchange_token='+ short_lived_token
+
+    long_lived_token = urllib2.urlopen(url).read()
+    if 'access_token=' in long_lived_token:
+        long_lived_token = long_lived_token.replace('access_token', '')
+
+    return long_lived_token
 
 
 if __name__ == "__main__":
