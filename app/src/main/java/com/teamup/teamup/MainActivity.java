@@ -35,6 +35,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
 
 public class MainActivity extends AppCompatActivity {
 
+    String userId="0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent nextActivity = new Intent(MainActivity.this, EditInterests.class);
+            nextActivity.putExtra("user_id",userId);
             startActivity(nextActivity);
         }
 
