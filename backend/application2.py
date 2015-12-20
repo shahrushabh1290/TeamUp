@@ -168,19 +168,23 @@ def insert_user():
 
 @application.route('/get_interest')
 def get_interest():
+    res={}
     user_id = request.args.get('user_id')
-    cursor = col_users.find({'user_id': user_id})
-    interests = []
-    for k in cursor:
-        interests = k['interests']
-    return ''
-
+    cursor = col_users.find_one({'user_fb_id': user_id})
+    interests = ""
+    for k in cursor['interests']:
+        interests += str(k)
+    res['interests'] = interests
+    print res
+    return json.dumps(res, default=json_util.default)
+     
 
 @application.route('/add_interest', methods=['GET', 'POST'])
 def add_interest():
-    interest_added = request.form('add_interest')
+    interest_added = request.form('new_interest')
+    print interest_added
     user_fb_id = request.args.get('user_fb_id')
-    col_users.update_one(
+    col_users.update(
     {"user_fb_id": user_fb_id},
     { "$addToSet":{"interests": interest_added} }, 
     upsert=True)
