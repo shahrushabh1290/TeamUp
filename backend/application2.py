@@ -106,7 +106,6 @@ def create_event():
     """ method that creates OR update an existing event if the event_id field is not empty in the post request """
     try:
         if request.method == 'POST':
-<<<<<<< HEAD
             # If we want to create a new event
             if request.form['event_id'] == '':
                 tag = request.form['tag']
@@ -171,7 +170,7 @@ def create_event():
 
                 col_events.update({ "_id": ObjectId(event_id)}, {"$set": event})
                 return 'Event successfully updated'
-=======
+
             print request.form
             print request.data
             user_id = request.form['user_id']
@@ -212,7 +211,7 @@ def create_event():
             # col_events.update({ "_id": ObjectId(event_id)}, event)
             col_events.insert(event)
             return 'Event created !'
->>>>>>> 80840ed0b940cd6bd88dbf79d3ee9fc190c9a18d
+
 
     except KeyError, e:
         raise
