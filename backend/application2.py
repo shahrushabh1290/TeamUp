@@ -28,8 +28,11 @@ def display_events():
     user_id = str(request.args.get('user_id'))
     latitude = request.args.get('lat')
     longitude = request.args.get('long')
+    print user_id, latitude, longitude
     radius = int(request.args.get('radius'))
+    print radius
     tag = request.args.get('search_query')
+    tag = tag.lower()
 
     location = [float(latitude), float(longitude)]
     print location
@@ -95,24 +98,34 @@ def subscribe_event():
 
 @application.route('/create_event', methods=['GET', 'POST'])     # Difference between edit and create event in the front end ?
 def create_event():
+    print request.method
     try:
         if request.method == 'POST':
-            # user_id = request.form['user_id']
+            print request.form
+            print request.data
+            user_id = request.form['user_id']
             
             tag = request.form['tag']
-            print "ok"
             title = request.form['title']
-            start_time = request.form['start_time']
+            start_time = request.form['startTime']
+            print tag, title, start_time
 
-            end_time = request.form['end_time']
+            end_time = request.form['endTime']
             creator = request.form['creator'] 
             capacity = request.form['capacity']
             description = request.form['description']
-            location_event = request.form['location']
+            print 'ok'
+
+            lat = request.form['lat']
+            longi = request.form['long']
+            print lat, longi
+
             enrolment = [creator]
 
+
             #Editing the event
-            # event_id = request.form['event_id']
+            location_event = {'type': 'Point', 'coordinates': [float(lat), float(longi)] }
+
             event = dict({
                 'tag': tag,
                 'title': title,
@@ -124,8 +137,9 @@ def create_event():
                 'location': location_event,
                 'enrolment': enrolment,   
                 })
-            col_events.update({ "_id": ObjectId(event_id)}, event)
-            return 'Event updated !'
+            # col_events.update({ "_id": ObjectId(event_id)}, event)
+            col_events.insert(event)
+            return 'Event created !'
 
     except KeyError, e:
         raise
@@ -164,7 +178,7 @@ def get_interest():
 @application.route('/add_interest', methods=['GET', 'POST'])
 def add_interest():
     interest_added = request.form('add_interest')
-    user_fb_id = request.get.args('user_fb_id')
+    user_fb_id = request.args.get('user_fb_id')
     col_users.update_one(
     {"user_fb_id": user_fb_id},
     { "$addToSet":{"interests": interest_added} }, 
@@ -175,11 +189,12 @@ def add_interest():
     
 @application.route('/remove_interest', methods=['GET', 'POST'])
 def remove_interest():
-    user_fb_id = request.get.args('user_fb_id')
-    interests_to_remove = request.get.args('interests_to_remove')
-    col_users.update_one(
+    user_fb_id = request.args.get('user_fb_id')
+    interests_to_remove = request.args.get('interests_to_remove')
+    interests_to_remove = interests_to_remove.split(',')
+    col_users.update(
     {"user_fb_id": user_fb_id},
-    { "$pull": { interests: {"$in":  interests_to_remove} }}, 
+    { "$pull": { "interests": {"$in":  interests_to_remove} }}, 
     multi=True)
     return "Interest deleted !"  
 
