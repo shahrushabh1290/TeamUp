@@ -108,9 +108,9 @@ def create_event():
     try:
         if request.method == 'POST':
             # If we want to create a new event
-            if request.form['event_id'] == '':
-                tag = request.form['tag']
-                title = request.form['title']
+            if request.form.get('event_id') == None:
+                tag = request.form['tag'].lower()
+                title = request.form['title'].lower()
                 start_time = request.form['startTime']
                 end_time = request.form['endTime']
                 creator = request.form['creator'] 
@@ -119,7 +119,7 @@ def create_event():
                 lat = request.form['lat']
                 longi = request.form['long']
                 enrolment = [creator]
-                locationName = request.form['locationName']
+                loc_raw = request.form['locationRaw']
 
                 #Editing the event
                 location_event = {'type': 'Point', 'coordinates': [float(lat), float(longi)] }
@@ -134,15 +134,15 @@ def create_event():
                     'description': description,
                     'location': location_event,
                     'enrolment': enrolment,
-                    'locationName': locationName   
+                    'loc_raw': loc_raw   
                     })
                 col_events.insert(event)
                 return 'Event created !'
             else:
                 # We update an existing event
                 event_id = request.form['event_id']
-                tag = request.form['tag']
-                title = request.form['title']
+                tag = request.form['tag'].lower()
+                title = request.form['title'].lower()
                 start_time = request.form['startTime']
                 end_time = request.form['endTime']
                 creator = request.form['creator'] 
@@ -151,7 +151,7 @@ def create_event():
                 lat = request.form['lat']
                 longi = request.form['long']
                 enrolment = [creator]
-                locationName = request.form['locationName']
+                loc_raw = request.form['locationRaw']
 
                 #Editing the event
                 location_event = {'type': 'Point', 'coordinates': [float(lat), float(longi)] }
@@ -166,53 +166,11 @@ def create_event():
                     'description': description,
                     'location': location_event,
                     'enrolment': enrolment,
-                    'locationName': locationName   
+                    'loc_raw': loc_raw   
                     })
 
                 col_events.update({ "_id": ObjectId(event_id)}, {"$set": event})
                 return 'Event successfully updated'
-
-            print request.form
-            print request.data
-            user_id = request.form['user_id']
-            loc_raw = request.form['locationRaw']
-            tag = request.form['tag'].lower()
-            title = request.form['title'].lower()
-            start_time = request.form['startTime']
-            print tag, title, start_time
-
-            end_time = request.form['endTime']
-            #creator = request.form['creator'] 
-            capacity = request.form['capacity']
-            description = request.form['description']
-            print 'ok'
-
-            lat = request.form['lat']
-            longi = request.form['long']
-            print lat, longi
-
-            enrolment = [user_id]
-
-
-            #Editing the event
-            location_event = {'type': 'Point', 'coordinates': [float(lat), float(longi)] }
-
-            event = dict({
-                'tag': tag,
-                'title': title,
-                'start_time': start_time,
-                'end_time': end_time,
-                'creator': user_id,
-                'capacity': capacity,
-                'description': description,
-                'location': location_event,
-                'enrolment': enrolment,
-                'locRaw' : loc_raw   
-                })
-            # col_events.update({ "_id": ObjectId(event_id)}, event)
-            col_events.insert(event)
-            return 'Event created !'
-
 
     except KeyError, e:
         raise
@@ -273,20 +231,21 @@ def remove_interest():
     return "Interest deleted !"  
 
 
-@application.route('/facebook_friends')
+@application.route('/facebook_friends', methods=['GET', 'POST'])
 def get_facebook_friends():
-    """ from a facebook short lived token returns a long lived token to the client"""
-    
+    """ from a facebook short lived token returns a long lived token to the client (we need to catch the http errors..."""
+
     short_lived_token = request.form('short_lived_token')
     app_id = request.form['app_id']
     app_secret = request.form['app_secret']
     url = 'https://graph.facebook.com/oauth/access_token'+ '?grant_type=fb_exchange_token&client_id='+ app_id+ '&client_secret='+ app_secret+ '&fb_exchange_token='+ short_lived_token
-
+    
     long_lived_token = urllib2.urlopen(url).read()
     if 'access_token=' in long_lived_token:
         long_lived_token = long_lived_token.replace('access_token', '')
 
     return long_lived_token
+
 
 
 if __name__ == "__main__":
