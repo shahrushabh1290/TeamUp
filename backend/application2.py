@@ -25,10 +25,10 @@ def hello():
 
 @application.route('/display_events', methods=['POST', 'GET'])
 def display_events():
-    user_id = str(request.args.get('user_id'))
+    user_fb_id = str(request.args.get('user_fb_id'))
     latitude = request.args.get('lat')
     longitude = request.args.get('long')
-    print user_id, latitude, longitude
+    print user_fb_id, latitude, longitude
     radius = int(request.args.get('radius'))
     print radius
     tag = request.args.get('search_query')
@@ -36,31 +36,35 @@ def display_events():
 
     location = [float(latitude), float(longitude)]
     print location
-    print "Login with: \n (user_id, location, radius): (", user_id, ', ', location, ', ', radius,')'
+    print "Login with: \n (user_fb_id, location, radius): (", user_fb_id, ', ', location, ', ', radius,')'
 
-    cursor = col_users.find({'user_id': user_id})
-    if cursor.count() == 0:
-        print "user doesn't exist !"
-
-    # Implement the function get events (user_id, location, timestamp, tag_query=None)
+    cursor = col_users.find({'user_id': user_fb_id})
     events_list = []
     res = dict()
+
     if tag == '':
-        #retrieve user interest ...
-        for doc in col_events.find({"location.coordinates": {"$within": {"$center": [location, radius]}}}).sort("start_time"):
-            events_list.append(doc)
-        res['events'] = events_list
-        print "Without search query: ", str(events_list)
+        #If there is no search query we retrieve the users interests
+        if cursor.count() == 0:
+            print "user doesn't exist !"
+        else:
+            for user in cursor:
+                interests = user['interests']
+        if len(interests) == 0:
+            for doc in col_events.find({"location.coordinates": {"$within": {"$center": [location, radius]}}}).sort("start_time"):
+                events_list.append(doc)
+            res['events'] = events_list
+            print "Without search query and interests: ", str(events_list)
+        else:
+            for doc in col_events.find({"tag": {"$in": interests}, "location.coordinates": {"$within": {"$center": [location, radius]}}}).sort("start_time"):
+                events_list.append(doc)
+            res['events'] = events_list
+            print "Without search query but with interests: ", str(events_list)           
     else:
         print "Searching with tag: ", tag
         for doc in col_events.find({"tag": tag, "location.coordinates": {"$within": {"$center": [location, radius]}}}).sort("start_time"):
             events_list.append(doc)
-        # print "With search query: "
-        # for k in events_list:
-        #     print k
-        #     print k['tag'], k['start_time']
-        #     print '\n'
         print events_list
+
         res['events'] = events_list
     return json.dumps(res, default=json_util.default)
 
@@ -85,6 +89,7 @@ def get_event():
         event = json.dumps(i, default=json_util.default)
     return event
 
+
 @application.route('/subscribe')
 def subscribe_event():
     event_id = request.args.get("event_id")
@@ -98,20 +103,86 @@ def subscribe_event():
 
 @application.route('/create_event', methods=['GET', 'POST'])     # Difference between edit and create event in the front end ?
 def create_event():
-    print request.method
+    """ method that creates OR update an existing event if the event_id field is not empty in the post request """
     try:
         if request.method == 'POST':
+<<<<<<< HEAD
+            # If we want to create a new event
+            if request.form['event_id'] == '':
+                tag = request.form['tag']
+                title = request.form['title']
+                start_time = request.form['startTime']
+                end_time = request.form['endTime']
+                creator = request.form['creator'] 
+                capacity = request.form['capacity']
+                description = request.form['description']
+                lat = request.form['lat']
+                longi = request.form['long']
+                enrolment = [creator]
+                locationName = request.form['locationName']
+
+                #Editing the event
+                location_event = {'type': 'Point', 'coordinates': [float(lat), float(longi)] }
+
+                event = dict({
+                    'tag': tag,
+                    'title': title,
+                    'start_time': start_time,
+                    'end_time': end_time,
+                    'creator': creator,
+                    'capacity': capacity,
+                    'description': description,
+                    'location': location_event,
+                    'enrolment': enrolment,
+                    'locationName': locationName   
+                    })
+                col_events.insert(event)
+                return 'Event created !'
+            else:
+                # We update an existing event
+                event_id = request.form['event_id']
+                tag = request.form['tag']
+                title = request.form['title']
+                start_time = request.form['startTime']
+                end_time = request.form['endTime']
+                creator = request.form['creator'] 
+                capacity = request.form['capacity']
+                description = request.form['description']
+                lat = request.form['lat']
+                longi = request.form['long']
+                enrolment = [creator]
+                locationName = request.form['locationName']
+
+                #Editing the event
+                location_event = {'type': 'Point', 'coordinates': [float(lat), float(longi)] }
+
+                event = dict({
+                    'tag': tag,
+                    'title': title,
+                    'start_time': start_time,
+                    'end_time': end_time,
+                    'creator': creator,
+                    'capacity': capacity,
+                    'description': description,
+                    'location': location_event,
+                    'enrolment': enrolment,
+                    'locationName': locationName   
+                    })
+
+                col_events.update({ "_id": ObjectId(event_id)}, {"$set": event})
+                return 'Event successfully updated'
+=======
             print request.form
             print request.data
             user_id = request.form['user_id']
-            
-            tag = request.form['tag']
-            title = request.form['title']
+            loc_raw = request.form['locationRaw']
+            tag = request.form['tag'].lower()
+            title = request.form['title'].lower()
             start_time = request.form['startTime']
             print tag, title, start_time
 
             end_time = request.form['endTime']
-            creator = request.form['creator'] 
+            #creator = request.form['creator'] 
             capacity = request.form['capacity']
             description = request.form['description']
             print 'ok'
@@ -120,7 +191,7 @@ def create_event():
             longi = request.form['long']
             print lat, longi
 
-            enrolment = [creator]
+            enrolment = [user_id]
 
 
             #Editing the event
@@ -131,20 +202,21 @@ def create_event():
                 'title': title,
                 'start_time': start_time,
                 'end_time': end_time,
-                'creator': creator,
+                'creator': user_id,
                 'capacity': capacity,
                 'description': description,
                 'location': location_event,
-                'enrolment': enrolment,   
+                'enrolment': enrolment,
+                'locRaw' : loc_raw   
                 })
             # col_events.update({ "_id": ObjectId(event_id)}, event)
             col_events.insert(event)
             return 'Event created !'
+>>>>>>> 80840ed0b940cd6bd88dbf79d3ee9fc190c9a18d
 
     except KeyError, e:
         raise
-
-    return 'fuck get request'
+    return 'This is a get request'
 
 
 
@@ -177,11 +249,13 @@ def get_interest():
 
 @application.route('/add_interest', methods=['GET', 'POST'])
 def add_interest():
+    """ add interests to a given user when they are seperated by comas """
     interest_added = request.form('add_interest')
+    interest_added = interest_added.split(',')
     user_fb_id = request.args.get('user_fb_id')
     col_users.update_one(
     {"user_fb_id": user_fb_id},
-    { "$addToSet":{"interests": interest_added} }, 
+    { "$addToSet": {"interests": {"$each": interest_added } } }, 
     upsert=True)
     return "Interest added !"
 
