@@ -13,7 +13,7 @@ MONGO_DB_URL = os.environ.get('MONGO_DB_URL')
 col_users = MongoClient(MONGO_DB_URL).test.users
 
 col_events = MongoClient(MONGO_DB_URL).test.events
-col_events.create_index([("location.coordinates", GEO2D)])
+#col_events.create_index([("location.coordinates", GEO2D)])
 
 
 
@@ -43,6 +43,7 @@ def display_events():
     events_list = []
     res = dict()
     if tag == '':
+        #retrieve user interest ...
         for doc in col_events.find({"location.coordinates": {"$within": {"$center": [location, radius]}}}).sort("start_time"):
             events_list.append(doc)
         res['events'] = events_list
@@ -101,16 +102,14 @@ def create_event():
             tag = request.form['tag']
             print "ok"
             title = request.form['title']
-
             start_time = request.form['start_time']
 
             end_time = request.form['end_time']
-            creator = request.form['creator']
+            creator = request.form['creator'] 
             capacity = request.form['capacity']
             description = request.form['description']
             location_event = request.form['location']
-            enrolment = [user_id]
-
+            enrolment = [creator]
 
             #Editing the event
             # event_id = request.form['event_id']
@@ -132,6 +131,57 @@ def create_event():
         raise
 
     return 'fuck get request'
+
+
+
+@application.route('/insert_user')
+def insert_user():
+    user_fb_id = request.args.get('user_fb_id')
+    cursor = col_users.find({'user_fb_id': user_fb_id}) 
+    var = "User already known"
+    if cursor.count() != 0:
+        var = "New user inserted !"
+        user = dict({
+            'user_fb_id': user_fb_id,
+            'events_subscribed': [],
+            'interests': [],
+            'fb_friends': []
+            })
+        col_users.insert(user)
+    return var
+
+
+@application.route('/get_interest')
+def get_interest():
+    user_id = request.args.get('user_id')
+    cursor = col_users.find({'user_id': user_id})
+    interests = []
+    for k in cursor:
+        interests = k['interests']
+    return ''
+
+
+@application.route('/add_interest', methods=['GET', 'POST'])
+def add_interest():
+    interest_added = request.form('add_interest')
+    user_fb_id = request.get.args('user_fb_id')
+    col_users.update_one(
+    {"user_fb_id": user_fb_id},
+    { "$addToSet":{"interests": interest_added} }, 
+    upsert=True)
+    return "Interest added !"
+
+
+    
+@application.route('/remove_interest', methods=['GET', 'POST'])
+def remove_interest():
+    user_fb_id = request.get.args('user_fb_id')
+    interests_to_remove = request.get.args('interests_to_remove')
+    col_users.update_one(
+    {"user_fb_id": user_fb_id},
+    { "$pull": { interests: {"$in":  interests_to_remove} }}, 
+    multi=True)
+    return "Interest deleted !"  
 
 
 
