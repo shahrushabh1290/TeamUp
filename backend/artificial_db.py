@@ -8,7 +8,7 @@ MONGO_DB_URL = os.environ.get('MONGO_DB_URL')
 col_users = MongoClient(MONGO_DB_URL).test.users
 col_events = MongoClient(MONGO_DB_URL).test.events
 
-events = False
+events = True
 users = True
 
 
@@ -24,6 +24,7 @@ if events:
             'title': 'aa',
             'tag': tags[index_tag],
             'enrolment': [],
+            'locRaw' : 'Columbia University',
             'privacy': random.randint(0,1),
             'notifications': [],
             'start_time': int(time.time()),
