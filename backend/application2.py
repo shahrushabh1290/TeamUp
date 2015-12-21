@@ -171,6 +171,46 @@ def create_event():
 
                 col_events.update({ "_id": ObjectId(event_id)}, {"$set": event})
                 return 'Event successfully updated'
+            print request.form
+            print request.data
+            user_id = request.form['user_id']
+            loc_raw = request.form['locationRaw']
+            tag = request.form['tag'].lower()
+            title = request.form['title'].lower()
+            start_time = request.form['startTime']
+            print tag, title, start_time
+
+            end_time = request.form['endTime']
+            #creator = request.form['creator'] 
+            capacity = request.form['capacity']
+            description = request.form['description']
+            print 'ok'
+
+            lat = request.form['lat']
+            longi = request.form['long']
+            print lat, longi
+
+            enrolment = [user_id]
+
+
+            #Editing the event
+            location_event = {'type': 'Point', 'coordinates': [float(lat), float(longi)] }
+
+            event = dict({
+                'tag': tag,
+                'title': title,
+                'start_time': start_time,
+                'end_time': end_time,
+                'creator': user_id,
+                'capacity': capacity,
+                'description': description,
+                'location': location_event,
+                'enrolment': enrolment,
+                'locRaw' : loc_raw   
+                })
+            # col_events.update({ "_id": ObjectId(event_id)}, event)
+            col_events.insert(event)
+            return 'Event created !'
 
     except KeyError, e:
         raise
@@ -197,21 +237,25 @@ def insert_user():
 
 @application.route('/get_interest')
 def get_interest():
+    res={}
     user_id = request.args.get('user_id')
-    cursor = col_users.find({'user_id': user_id})
-    interests = []
-    for k in cursor:
-        interests = k['interests']
-    return ''
-
+    cursor = col_users.find_one({'user_fb_id': user_id})
+    interests = ""
+    for k in cursor['interests']:
+        interests += str(k)
+    res['interests'] = interests
+    print res
+    return json.dumps(res, default=json_util.default)
+     
 
 @application.route('/add_interest', methods=['GET', 'POST'])
 def add_interest():
     """ add interests to a given user when they are seperated by comas """
-    interest_added = request.form('add_interest')
+    interest_added = request.form['new_interest']
     interest_added = interest_added.split(',')
+    print interest_added
     user_fb_id = request.args.get('user_fb_id')
-    col_users.update_one(
+    col_users.update(
     {"user_fb_id": user_fb_id},
     { "$addToSet": {"interests": {"$each": interest_added } } }, 
     upsert=True)
