@@ -32,38 +32,5 @@ public class CardListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-
-        //int listImages[] = new int[]{R.drawable.angry_1, R.drawable.angry_2,
-        //        R.drawable.angry_3, R.drawable.angry_4, R.drawable.angry_5};
-
-//        ArrayList<Card> cards = new ArrayList<Card>();
-//
-//        for (int i = 0; i<5; i++) {
-//            Event event = new Event("Tag"+i,"Location"+i,"Time"+i,"Title"+i,"Attendance"+i);
-//            Card card = new CustomCard(this,event);
-//
-//            card.setOnClickListener(new Card.OnCardClickListener() {
-//                @Override
-//                public void onClick(Card card, View view) {
-//                    Intent openLandingPage = new Intent(CardListActivity.this,EventDescription.class);
-//                    startActivity(openLandingPage);
-//                    //Toast.makeText(getContext(), "Click Listener card=", Toast.LENGTH_LONG).show();
-//                }
-//            });
-//
-//
-//            //CardThumbnail thumb = new CardThumbnail(this);
-//            //thumb.setDrawableResource(listImages[i]);
-//            //card.addCardThumbnail(thumb);
-//
-//            cards.add(card);
-//        }
-//
-//        CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(this, cards);
-//
-//        CardListView listView = (CardListView) this.findViewById(R.id.myList);
-//        if (listView != null) {
-//            listView.setAdapter(mCardArrayAdapter);
-//        }
     }
 }

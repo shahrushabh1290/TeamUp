@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         params.put("user_id", "0");
         params.put("search_query", editText.getText().toString().trim());
         params.put("radius", "5000000");
-        String url = Utilities.createUrl("http://6dbbede.ngrok.com/display_events", params);
+        String url = Utilities.createUrl("http://7f9c7ffd.ngrok.com/display_events", params);
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 final JSONObject eventJson = jsonArray.getJSONObject(i);
                 Event event = new Event(eventJson);
-                Card card = new CustomCard(this,event);
+                Card card = new CustomCard(this,event,userId);
                 card.setOnClickListener(new Card.OnCardClickListener() {
                     @Override
                     public void onClick(Card card, View view) {
