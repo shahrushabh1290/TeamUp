@@ -7,6 +7,7 @@ import json
 import uuid
 from bson.objectid import ObjectId
 import urllib2
+import ast
 
 application = Flask(__name__)
 
@@ -92,10 +93,14 @@ def get_event():
     return event
 
 
-@application.route('/subscribe')
+@application.route('/subscribe',methods=['POST'])
 def subscribe_event():
-    event_id = request.args.get("event_id")
-    user_id = request.args.get("user_id")
+    event_id = request.form["event_id"]
+    user_id = request.form["user_id"]
+
+    event_id=ast.literal_eval(event_id)
+    event_id=event_id['$oid']
+    
     col_events.update_one(
     {"_id": ObjectId(event_id)},
     {"$push": {"enrolment": user_id}}
