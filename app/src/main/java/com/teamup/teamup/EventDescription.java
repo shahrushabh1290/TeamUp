@@ -55,7 +55,7 @@ public class EventDescription extends AppCompatActivity {
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Join this event", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Join this event", Toast.LENGTH_SHORT).show();
                 try {
                     joinEvent(v,userId, finalEvent.getString("_id"));
                 } catch (JSONException e) {
@@ -69,8 +69,12 @@ public class EventDescription extends AppCompatActivity {
         leaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Leave this event", Toast.LENGTH_SHORT).show();
-               // leaveEvent(v);
+                //Toast.makeText(getApplicationContext(), "Leave this event", Toast.LENGTH_SHORT).show();
+                try {
+                    leaveEvent(v,userId, finalEvent.getString("_id"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -102,6 +106,41 @@ public class EventDescription extends AppCompatActivity {
 
     private void joinEvent(View v, final String userId, final String eventId) {
         String url = "http://6dbbede.ngrok.com/subscribe";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        // Result handling
+                        System.out.println(response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Error handling
+                System.out.println("Something went wrong! in join event");
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("user_id", userId);
+                params.put("event_id", eventId);
+
+                return params;
+            }
+        };
+
+        // Add the request to the queue
+        Service.getInstance().getRequestQueue().add(stringRequest);
+    }
+
+    private void leaveEvent(View v, final String userId, final String eventId) {
+        String url = "http://6dbbede.ngrok.com/unsubscribe";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
