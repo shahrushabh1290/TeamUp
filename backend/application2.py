@@ -8,6 +8,7 @@ import uuid
 from bson.objectid import ObjectId
 import urllib2
 import ast
+import re
 
 application = Flask(__name__)
 
@@ -64,6 +65,7 @@ def display_events():
             print "Without search query but with interests: ", str(events_list)           
     else:
         tag = '/' + tag + '/' 
+        tag = re.compile(tag)
         print "Searching with tag: ", tag
         for doc in col_events.find({"tag": {"$regex": tag}, "location.coordinates": {"$within": {"$center": [location, radius]}}}).sort("start_time"):
             events_list.append(doc)
