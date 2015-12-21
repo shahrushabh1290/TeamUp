@@ -64,6 +64,7 @@ def display_events():
             print "Without search query but with interests: ", str(events_list)           
     else:
         print "Searching with tag: ", tag
+        tag = '/.*' + tag + '.*/'
         for doc in col_events.find({"tag": tag, "location.coordinates": {"$within": {"$center": [location, radius]}}}).sort("start_time"):
             events_list.append(doc)
         print events_list
