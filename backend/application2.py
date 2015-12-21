@@ -65,7 +65,7 @@ def display_events():
     else:
         print "Searching with tag: ", tag
         tag = '/.*' + tag + '.*/'
-        for doc in col_events.find({"tag": tag, "location.coordinates": {"$within": {"$center": [location, radius]}}}).sort("start_time"):
+        for doc in col_events.find({"tag": {"$regex": tag}, "location.coordinates": {"$within": {"$center": [location, radius]}}}).sort("start_time"):
             events_list.append(doc)
         print events_list
 
