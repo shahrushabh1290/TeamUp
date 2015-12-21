@@ -40,7 +40,7 @@ def display_events():
     print location
     print "Login with: \n (user_fb_id, location, radius): (", user_fb_id, ', ', location, ', ', radius,')'
 
-    cursor = col_users.find({'user_id': user_fb_id})
+    cursor = col_users.find({'user_fb_id': user_fb_id})
     events_list = []
     res = dict()
 
