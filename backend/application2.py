@@ -137,7 +137,7 @@ def create_event():
                     'enrolment': enrolment,
                     'loc_raw': loc_raw   
                     })
-                col_events.insert(event)
+
                 return 'Event created !'
             else:
                 # We update an existing event
@@ -172,47 +172,6 @@ def create_event():
 
                 col_events.update({ "_id": ObjectId(event_id)}, {"$set": event})
                 return 'Event successfully updated'
-            # print request.form
-            # print request.data
-            # user_id = request.form['user_id']
-            # loc_raw = request.form['locationRaw']
-            # tag = request.form['tag'].lower()
-            # title = request.form['title'].lower()
-            # start_time = request.form['startTime']
-            # print tag, title, start_time
-
-            # end_time = request.form['endTime']
-            # #creator = request.form['creator'] 
-            # capacity = request.form['capacity']
-            # description = request.form['description']
-            # print 'ok'
-
-            # lat = request.form['lat']
-            # longi = request.form['long']
-            # print lat, longi
-
-            # enrolment = [user_id]
-
-
-            # #Editing the event
-            # location_event = {'type': 'Point', 'coordinates': [float(lat), float(longi)] }
-
-            # event = dict({
-            #     'tag': tag,
-            #     'title': title,
-            #     'start_time': start_time,
-            #     'end_time': end_time,
-            #     'creator': user_id,
-            #     'capacity': capacity,
-            #     'description': description,
-            #     'location': location_event,
-            #     'enrolment': enrolment,
-            #     'locRaw' : loc_raw   
-            #     })
-            # # col_events.update({ "_id": ObjectId(event_id)}, event)
-            # col_events.insert(event)
-            # return 'Event created !'
-
     except KeyError, e:
         raise
     return 'This is a get request'
@@ -228,7 +187,7 @@ def insert_user():
         var = "New user inserted !"
         user = dict({
             'user_fb_id': user_fb_id,
-            'events_subscribed': [],
+            # 'events_subscribed': [],
             'interests': [],
             'fb_friends': []
             })
