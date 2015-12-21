@@ -72,8 +72,8 @@ public class Event {
             title = eventJson.getString("title");
         }
 
-        if(eventJson.has("locRaw")) {
-            rawLoc = eventJson.getString("locRaw");
+        if(eventJson.has("loc_raw")) {
+            rawLoc = eventJson.getString("loc_raw");
         }
     }
 

@@ -95,7 +95,7 @@ public class CreateEvent extends AppCompatActivity implements DatePickerDialog.O
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Create this event", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Hello this event", Toast.LENGTH_SHORT).show();
                 createEvent(v);
             }
         });
@@ -160,8 +160,15 @@ public class CreateEvent extends AppCompatActivity implements DatePickerDialog.O
 
                 params.put("endTime", Long.toString(start_ts));
 
-                params.put("lat", String.valueOf(locAddress.getLatitude()));
-                params.put("long",String.valueOf(locAddress.getLongitude()));
+                if(locAddress != null) {
+                    params.put("lat", String.valueOf(locAddress.getLatitude()));
+                    params.put("long", String.valueOf(locAddress.getLongitude()));
+                }
+                else
+                {
+                    params.put("lat", "0");
+                    params.put("long", "0");
+                }
                 return params;
             }
         };

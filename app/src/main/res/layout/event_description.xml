@@ -124,7 +124,7 @@
             android:fontFamily="Verdana"
             android:textSize="20sp"
             android:layout_weight="2"
-            android:text="Time  "/>
+            android:text="Start Time  "/>
 
         <TextView
             android:id="@+id/tv_eventTimeVar"
@@ -140,6 +140,38 @@
         android:layout_width="fill_parent"
         android:layout_height="2dp"
         android:background="#c0c0c0"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="30px"
+        android:weightSum="4">
+        <TextView
+            android:id="@+id/tv_eventEndTime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="Verdana"
+            android:textSize="20sp"
+            android:layout_weight="2"
+            android:text="End Time  "/>
+
+        <TextView
+            android:id="@+id/tv_eventEndTimeVar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="Verdana"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:text=""/>
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"/>
+
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -169,10 +201,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:weightSum="2">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_weight="1">
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_joinEvent"
@@ -184,6 +219,7 @@
             android:paddingTop="10dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
             fancy:fb_borderColor="#FFFFFF"
             fancy:fb_borderWidth="1dp"
             fancy:fb_defaultColor="#7ab800"
@@ -200,6 +236,8 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="1">
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_leaveEvent"
@@ -211,6 +249,7 @@
             android:paddingTop="10dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
             fancy:fb_borderColor="#FFFFFF"
             fancy:fb_borderWidth="1dp"
             fancy:fb_defaultColor="#673AB7"

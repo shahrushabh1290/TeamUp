@@ -134,7 +134,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(Card card, View view) {
                         Intent nextActivity = new Intent(MainActivity.this, EventDescription.class);
-                        nextActivity.putExtra("EventVal",eventJson.toString());
+                        Bundle extras = new Bundle();
+                        extras.putString("user_id",userId);
+                        extras.putString("EventVal",eventJson.toString());
+                        nextActivity.putExtras(extras);
                         startActivity(nextActivity);
                     }
                 });
