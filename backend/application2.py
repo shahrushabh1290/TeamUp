@@ -158,7 +158,7 @@ def create_event():
                     'enrolment': enrolment,
                     'loc_raw': loc_raw   
                     })
-
+                col_events.insert(event)
                 return 'Event created !'
             else:
                 # We update an existing event
