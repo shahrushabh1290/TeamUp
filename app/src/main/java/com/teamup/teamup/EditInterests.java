@@ -52,9 +52,9 @@ public class EditInterests extends AppCompatActivity{
         editInterests.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str=getInterests.getText().toString().trim();
+                String str = getInterests.getText().toString().trim();
                 List<String> updateInterestList = Arrays.asList(str.split(","));
-                updateInterests(updateInterestList,userId);
+                updateInterests(updateInterestList, userId);
             }
         });
     }
@@ -71,9 +71,14 @@ public class EditInterests extends AppCompatActivity{
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) throws JSONException {
-                        String interestsString = response.getString("interests");
-                        showInterests.setText(interestsString);
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String interestsString = response.getString("interests");
+                            showInterests.setText(interestsString);
+                        }
+                        catch(Exception e) {
+                            System.out.println("There was an parsing json for get_interests");
+                        }
                     }
                 },
                 new Response.ErrorListener() {
