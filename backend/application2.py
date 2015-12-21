@@ -235,6 +235,7 @@ def add_interest():
     interest_added = request.form['new_interest'].encode('ascii','ignore')
     interest_added = interest_added.replace('"',"")
     interest_added = interest_added[1:len(interest_added)-1].split(",")
+    interest_added = [k.lower() for k in interest_added]
     user_fb_id = request.form['user_fb_id']
     col_users.update(
     {"user_fb_id": user_fb_id},
@@ -250,6 +251,7 @@ def remove_interest():
     interests_to_remove = request.form['interests_to_remove'].encode('ascii','ignore')
     interests_to_remove = interests_to_remove.replace('"',"")
     interests_to_remove = interests_to_remove[1:len(interests_to_remove)-1].split(",")
+    interests_to_remove = [k.lower() for k in interests_to_remove]
     col_users.update(
     {"user_fb_id": user_fb_id},
     { "$pull": { "interests": {"$in":  interests_to_remove} }}, 
