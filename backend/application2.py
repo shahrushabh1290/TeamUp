@@ -104,7 +104,7 @@ def subscribe_event():
     
     col_events.update_one(
     {"_id": ObjectId(event_id)},
-    {"$push": {"enrolment": user_id}}
+    {"$addToSet": {"enrolment": user_id}}
     )
     return "Subscription done !"
 
