@@ -93,19 +93,34 @@ def get_event():
     return event
 
 
-@application.route('/subscribe',methods=['POST'])
+@application.route('/subscribe', methods=['POST'])
 def subscribe_event():
     event_id = request.form["event_id"]
     user_id = request.form["user_id"]
 
-    event_id=ast.literal_eval(event_id)
-    event_id=event_id['$oid']
+    event_id = ast.literal_eval(event_id)
+    event_id = event_id['$oid']
     
     col_events.update_one(
     {"_id": ObjectId(event_id)},
     {"$push": {"enrolment": user_id}}
     )
     return "Subscription done !"
+
+
+@application.route('/unsubscribe', methods=['POST'])
+def unsubscribe_event():
+    event_id = request.form["event_id"]
+    user_id = request.form["user_id"]
+    event_id = ast.literal_eval(event_id)
+    event_id = event_id['$oid']
+
+    col_events.update_one(
+    {"_id": ObjectId(event_id)},
+    {"$pull": {"enrolment": user_id}}
+    )
+    return "Unsubscription done !"
+
 
 
 @application.route('/create_event', methods=['GET', 'POST'])     # Difference between edit and create event in the front end ?
