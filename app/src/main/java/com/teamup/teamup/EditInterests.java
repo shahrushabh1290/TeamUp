@@ -48,6 +48,7 @@ public class EditInterests extends AppCompatActivity{
 
 
         FancyButton editInterests = (FancyButton) findViewById(R.id.btn_updateInterests);
+        FancyButton removeInterests = (FancyButton) findViewById(R.id.btn_removeInterests);
 
         editInterests.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +56,15 @@ public class EditInterests extends AppCompatActivity{
                 String str = getInterests.getText().toString().trim();
                 List<String> updateInterestList = Arrays.asList(str.split(","));
                 updateInterests(updateInterestList, userId);
+            }
+        });
+
+        removeInterests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str=getInterests.getText().toString().trim();
+                List<String> updateInterestList = Arrays.asList(str.split(","));
+                removeInterests(updateInterestList,userId);
             }
         });
     }
@@ -66,7 +76,7 @@ public class EditInterests extends AppCompatActivity{
         userId="0";
         //
         params.put("user_id", userId);
-        String url = Utilities.createUrl("http://6dbbede.ngrok.com/get_interest", params);
+        String url = Utilities.createUrl("http://7f9c7ffd.ngrok.com/get_interest", params);
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -94,7 +104,7 @@ public class EditInterests extends AppCompatActivity{
 
     protected void updateInterests(final List<String> interests, final String userId) {
 
-        String url = "http://6dbbede.ngrok.com/add_interest";
+        String url = "http://7f9c7ffd.ngrok.com/add_interest";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -118,7 +128,7 @@ public class EditInterests extends AppCompatActivity{
             protected Map<String, String> getParams() throws AuthFailureError {
                 JSONArray interestArray = new JSONArray(interests);
                 HashMap<String, String> params = new HashMap<String, String>();
-                params.put("user_fb_id", "0");                                   //Change 0 to userId here
+                params.put("user_fb_id", userId);
                 params.put("new_interest", interestArray.toString());
                 return params;
             }
@@ -127,31 +137,44 @@ public class EditInterests extends AppCompatActivity{
         // Add the request to the queue
         Service.getInstance().getRequestQueue().add(stringRequest);
 
-//        HashMap<String, String> params = new HashMap<>();
-//        //REMOVE THIS
-//        userId="0";
-//        //
-//        JSONArray interestArray = new JSONArray(interests);
-//        params.put("user_fb_id", userId);
-//        params.put("new_interest", interestArray.toString());
-//        String url = Utilities.createUrl("http://6dbbede.ngrok.com/add_interest", params);
-//
-//        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) throws JSONException {
-//                        String interestsString = response.getString("interests");
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Utilities.handleErrors("Fetching events failed", error);
-//                    }
-//                });
-//
-//        // Add the request to the queue
-//        Service.getInstance().getRequestQueue().add(stringRequest);
+    }
+
+
+    protected void removeInterests(final List<String> interests, final String userId) {
+
+        String url = "http://7f9c7ffd.ngrok.com/remove_interest";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        // Result handling
+                        System.out.println(response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                // Error handling
+                System.out.println("Something went wrong in update event!");
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                JSONArray interestArray = new JSONArray(interests);
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("user_fb_id", userId);
+                params.put("interests_to_remove", interestArray.toString());
+                return params;
+            }
+        };
+
+        // Add the request to the queue
+        Service.getInstance().getRequestQueue().add(stringRequest);
+
     }
 
     @Override

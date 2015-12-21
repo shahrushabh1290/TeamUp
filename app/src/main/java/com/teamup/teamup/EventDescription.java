@@ -92,7 +92,7 @@ public class EventDescription extends AppCompatActivity {
             eventName.setText(event.getString("title"));
             eventTag.setText("#"+event.getString("tag"));
             eventDesc.setText(event.getString("description"));
-            eventLoc.setText(event.getString("loc_raw"));
+            eventLoc.setText(event.getString("locRaw"));
             Date date = new Date(Long.parseLong(event.getString("start_time")));
             eventTimeStart.setText(date.toString());
             Date date1 = new Date(Long.parseLong(event.getString("end_time")));
@@ -105,7 +105,7 @@ public class EventDescription extends AppCompatActivity {
     }
 
     private void joinEvent(View v, final String userId, final String eventId) {
-        String url = "http://6dbbede.ngrok.com/subscribe";
+        String url = "http://7f9c7ffd.ngrok.com/subscribe";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -140,7 +140,7 @@ public class EventDescription extends AppCompatActivity {
     }
 
     private void leaveEvent(View v, final String userId, final String eventId) {
-        String url = "http://6dbbede.ngrok.com/unsubscribe";
+        String url = "http://7f9c7ffd.ngrok.com/unsubscribe";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
