@@ -14,9 +14,9 @@ users = True
 
 # Creation of a dummy events database
 if events:
-    tags = ['basket', 'rugby', 'soccer', 'cricket', 'tennis']
+    tags = ['soccer', 'baseball', 'tennis', 'rugby', 'cricket', 'jog', 'waterpolo', 'hiking', 'squash', 'rugby']
     titles = ['Soccer at central park', 'Baseball game !!', 'tennis downtown', 'rugby in the bronx', 'Cricket at wankhede', 'Jog in Central Park', 'waterpolo in paris', 'hiking in the Alps', 'squash at Columbia', 'Rugby game at Dartmouth']
-    description = ["Let's play soccer in the north of central park, I have ball. Everybody is welcome to join !",
+    description = ["Let's play soccer in the north of central park, I have a ball. Everybody is welcome to join !",
                     "Anyone down for playing Baseball this afternoon ? My friends and I are beginners and would love to play with experienced players",
                     "Need a player for a tennis game down asap. Level: intermediate",
                     "It is a beautiful afternoon, let's play rugby !",
@@ -30,12 +30,10 @@ if events:
                     "Wankhede, Mumbai", "Reservoir, Central Park", "Paris, XVIe", "Chamonix", "Columbia University", "Dartmouth, Hanover"]
 
     for k in range(10):
-        index_tag = random.randint(0, len(tags)-1)
-        print index_tag
         col_events.insert(
             {
             'title': titles[k],
-            'tag': tags[index_tag],
+            'tag': tags[k],
             'enrolment': [],
             'locRaw' : locationNames[k],
             'privacy': random.randint(0,1),
